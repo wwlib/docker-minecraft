@@ -1,0 +1,7 @@
+name: helloworld
+version: 0.1
+author: Andrew Rapo
+main: org.wwlib.spigotmc.HelloWorld.Main
+
+commands:
+  Hello:

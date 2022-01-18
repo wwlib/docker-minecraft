@@ -1,0 +1,23 @@
+#!/bin/bash
+
+if [ -d "/minecraft" ]; then
+  if [[ $AUTO_DEPLOY = "true" ]] || [[ $AUTO_DEPLOY = "y" ]]; then
+    echo "Auto-deploying the scriptcraft plugin..."
+    echo "  Building the plugin..."
+    cd /opt/minecraft/ScriptCraft
+    ant
+    if [ -d "/minecraft/plugins" ]; then
+      echo "  Copying the plugin to /minecraft/plugins..."
+      cp target/scriptcraft.jar /minecraft/plugins
+    else
+      echo "  Directory /minecraft/plugins not found."
+      /bin/bash
+    fi
+  else
+    echo "Not auto-deploying the scriptcraft plugin. Starting bash instead..."
+    /bin/bash
+  fi
+else
+  echo "Error: Directory /minecraft does not exists. Aborting /deploy."
+  /bin/bash
+fi

@@ -1,0 +1,49 @@
+#!/bin/bash
+
+if [ -d "/minecraft" ]; then
+  echo "Directory /minecraft exists."
+  cd /minecraft
+ if [ -f "server.properties" ]; then
+  echo "server.properties exists"
+  else
+    echo "server.properties does not exist. Copying from /opt/minecraft/server.properties"
+    cp /opt/minecraft/server.properties .
+  fi
+  if [ -f "spigot-$MINECRAFT_VERSION.jar" ]
+  then
+    echo "spigot-$MINECRAFT_VERSION.jar exists"
+  else
+    echo "spigot-$MINECRAFT_VERSION.jar does not exist. Copying from /opt/minecraft/spigot-$MINECRAFT_VERSION.jar"
+    cp /opt/minecraft/spigot-$MINECRAFT_VERSION.jar .
+  fi
+  if [ -f "eula.txt" ]
+  then
+    echo "eula.txt exists"
+  else
+    echo "eula.txt does not exist. Creating it..."
+    echo "eula=true" > eula.txt
+  fi
+  if [ -f "ops.json" ]
+  then
+    echo "ops.json exists"
+  else
+    echo "ops.json does not exist. Copying from /opt/minecraft/ops.json"
+    cp /opt/minecraft/ops.json .
+  fi
+  echo "Copying /opt/nashorn to /minecraft/nashorn"
+  if [ ! -d "/minecraft/nashorn" ]; then
+    mkdir -p /minecraft/nashorn
+  fi
+  cp /opt/nashorn/*.* /minecraft/nashorn
+
+  # build/copy plugins from /opt/plugins
+  # ScriptCraft build.xml needs to target java 17 vs 16
+  # cd /opt/plugins/ScriptCraft
+  # ant
+  # if /minecraft/plugins exists
+  # cp /opt/plugins/ScriptCraft/target/scriptcraft.jar /minecraft/plugins
+  # add a -f (force) flag to /start
+
+else
+  echo "Error: Directory /minecraft does not exists. Aborting /deploy."
+fi

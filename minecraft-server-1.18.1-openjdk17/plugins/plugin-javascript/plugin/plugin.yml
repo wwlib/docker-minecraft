@@ -1,0 +1,7 @@
+name: hellojavascript
+version: 0.1
+author: Andrew Rapo
+main: org.wwlib.spigotmc.HelloJavaScript.Main
+
+commands:
+  Hellojs:

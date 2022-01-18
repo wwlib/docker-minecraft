@@ -1,0 +1,38 @@
+FROM openjdk:17-oraclelinux8
+
+ENV MINECRAFT_VERSION 1.18.1
+
+RUN microdnf update && microdnf install git nano wget
+
+ADD https://hub.spigotmc.org/jenkins/job/BuildTools/lastSuccessfulBuild/artifact/target/BuildTools.jar /opt/minecraft/BuildTools.jar
+WORKDIR /opt/minecraft/
+
+RUN java -Xmx1024M -jar BuildTools.jar --rev $MINECRAFT_VERSION
+
+WORKDIR /opt/plugins
+COPY plugins /opt/plugins
+RUN git clone --depth 1 --branch nashorn15.3 https://github.com/wwlib/ScriptCraft
+RUN microdnf install ant maven
+
+WORKDIR /opt/nashorn
+ADD https://repo1.maven.org/maven2/org/openjdk/nashorn/nashorn-core/15.3/nashorn-core-15.3.jar /opt/nashorn
+ADD https://repo1.maven.org/maven2/org/ow2/asm/asm/9.2/asm-9.2.jar /opt/nashorn
+ADD https://repo1.maven.org/maven2/org/ow2/asm/asm-commons/9.2/asm-commons-9.2.jar /opt/nashorn
+ADD https://repo1.maven.org/maven2/org/ow2/asm/asm-analysis/9.2/asm-analysis-9.2.jar /opt/nashorn
+ADD https://repo1.maven.org/maven2/org/ow2/asm/asm-tree/9.2/asm-tree-9.2.jar /opt/nashorn
+ADD https://repo1.maven.org/maven2/org/ow2/asm/asm-util/9.2/asm-util-9.2.jar /opt/nashorn
+
+ADD eula.txt /opt/minecraft/eula.txt
+ADD server.properties /opt/minecraft/server.properties
+ADD ops.json /opt/minecraft/ops.json
+
+ADD deploy /deploy
+RUN chmod +x /deploy
+
+ADD start /start
+RUN chmod +x /start
+
+EXPOSE 25565 22
+
+# CMD ["/start"]
+CMD ["bash"]

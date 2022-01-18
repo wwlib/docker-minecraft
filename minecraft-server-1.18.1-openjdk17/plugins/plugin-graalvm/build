@@ -1,0 +1,7 @@
+#!/bin/bash
+
+javac -cp /opt/minecraft/Spigot/Spigot-API/target/spigot-api-$MINECRAFT_VERSION-R0.1-SNAPSHOT-shaded.jar plugin/org/wwlib/spigotmc/HelloWorld/Main.java
+
+jar cvf helloworld.jar -C plugin .
+
+cp helloworld.jar /minecraft/plugins

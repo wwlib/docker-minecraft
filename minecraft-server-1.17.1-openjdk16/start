@@ -1,0 +1,19 @@
+#!/bin/bash
+
+if [ -d "/minecraft" ]; then
+  cd /minecraft
+
+  /deploy
+
+  if [[ $AUTO_START = "true" ]] || [[ $AUTO_START = "y" ]]; then
+    echo "Auto-starting the minecraft server..."
+    # java -Xms512M -Xmx1G -jar spigot-$MINECRAFT_VERSION.jar
+    java -Xms512M -Xmx1G -cp /minecraft/nashorn --module-path /minecraft/nashorn --add-modules org.openjdk.nashorn -jar spigot-$MINECRAFT_VERSION.jar
+  else
+    echo "Not auto-starting the minecraft server. Starting bash instead..."
+    /bin/bash
+  fi
+else
+  echo "Error: Directory /minecraft does not exists. Aborting /start."
+  /bin/bash
+fi
