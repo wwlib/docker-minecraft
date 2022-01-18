@@ -30,19 +30,25 @@ if [ -d "/minecraft" ]; then
     echo "ops.json does not exist. Copying from /opt/minecraft/ops.json"
     cp /opt/minecraft/ops.json .
   fi
-  echo "Copying /opt/nashorn to /minecraft/nashorn"
-  if [ ! -d "/minecraft/nashorn" ]; then
-    mkdir -p /minecraft/nashorn
+  if [ -d "/opt/nashorn" ]; then
+    echo "Copying /opt/nashorn to /minecraft/nashorn"
+    if [ ! -d "/minecraft/nashorn" ]; then
+      mkdir -p /minecraft/nashorn
+    fi
+    cp /opt/nashorn/*.* /minecraft/nashorn
   fi
-  cp /opt/nashorn/*.* /minecraft/nashorn
 
   # build/copy plugins from /opt/plugins
-  # ScriptCraft build.xml needs to target java 17 vs 16
+  # cd /opt/plugins/plugin-javascript
+  # ./build
+
+  # Note: ScriptCraft build.xml needs to target java 17 vs 16
   # cd /opt/plugins/ScriptCraft
   # ant
   # if /minecraft/plugins exists
   # cp /opt/plugins/ScriptCraft/target/scriptcraft.jar /minecraft/plugins
-  # add a -f (force) flag to /start
+
+  # TODO: add a -f (force) flag to /start
 
 else
   echo "Error: Directory /minecraft does not exists. Aborting /deploy."

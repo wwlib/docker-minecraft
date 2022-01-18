@@ -46,8 +46,6 @@ public class Main extends JavaPlugin implements Listener {
         ClassLoader previousClassLoader = currentThread.getContextClassLoader();
         currentThread.setContextClassLoader(getClassLoader());
         try {
-
-            // Bukkit.getPluginManager().registerEvents(this, this); 
             this.getServer().getPluginManager().registerEvents(this, this);
 
             ScriptEngineManager scriptEngineManager = new ScriptEngineManager();
@@ -116,7 +114,7 @@ public class Main extends JavaPlugin implements Listener {
                     } else if (arg0.equalsIgnoreCase("diamonds")) {
                         PlayerInventory inventory = player.getInventory(); // The player's inventory
                         ItemStack itemstackDiamonds = new ItemStack(Material.DIAMOND, 64); // A stack of diamonds
-                        ItemStack itemstackWood = new ItemStack(Material.WOOD, 64); // A stack of diamonds
+                        ItemStack itemstackWood = new ItemStack(Material.BIRCH_LOG, 64); // A stack of diamonds
                         player.sendMessage("Have some diamonds and wood!");
                         inventory.addItem(itemstackDiamonds);
                         inventory.addItem(itemstackWood);

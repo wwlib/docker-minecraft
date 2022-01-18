@@ -1,9 +1,9 @@
 FROM ghcr.io/graalvm/graalvm-ce:java17-21.3
 # https://github.com/graalvm/container/pkgs/container/graalvm-ce
 
-ENV MINECRAFT_VERSION 1.18
+ENV MINECRAFT_VERSION 1.17.1
 
-RUN microdnf update && microdnf install git
+RUN microdnf update && microdnf install git nano wget
 
 ADD https://hub.spigotmc.org/jenkins/job/BuildTools/lastSuccessfulBuild/artifact/target/BuildTools.jar /opt/minecraft/BuildTools.jar
 WORKDIR /opt/minecraft/
@@ -12,8 +12,9 @@ RUN java -Xmx1024M -jar BuildTools.jar --rev $MINECRAFT_VERSION
 
 WORKDIR /opt/plugins
 COPY plugins /opt/plugins
+RUN git clone --depth 1 --branch nashorn15.3 https://github.com/wwlib/ScriptCraft
+#RUN microdnf install ant maven
 
-#ADD scriptcraft.jar .
 ADD eula.txt /opt/minecraft/eula.txt
 ADD server.properties /opt/minecraft/server.properties
 ADD ops.json /opt/minecraft/ops.json
@@ -26,4 +27,5 @@ RUN chmod +x /start
 
 EXPOSE 25565 22
 
+# CMD ["/start"]
 CMD ["bash"]

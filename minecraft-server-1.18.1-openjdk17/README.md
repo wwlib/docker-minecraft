@@ -17,11 +17,12 @@ ScriptEngineManager factory = new ScriptEngineManager();
 this.engine = factory.getEngineByName("JavaScript");
 ```
 
+## Nashorn
+
 ### build image
 ```
 cd minecraft-server-1.18.1-openjdk17
 docker build -f Dockerfile.openjdk17 -t wwlib/minecraft:server-openjdk17 "."
-
 ```
 
 ### run image
@@ -62,3 +63,58 @@ cd /opt/plugins/ScriptCraft
 ant
 cp /opt/plugins/ScriptCraft/target/scriptcraft.jar /minecraft/plugins/scriptcraft.jar
 ```
+
+## GraalVM
+
+### build image
+```
+cd minecraft-server-1.18.1-openjdk17
+docker build -f Dockerfile.openjdk17-graalvm -t wwlib/minecraft:server-openjdk17-graalvm "."
+```
+
+### run image
+```
+docker run --rm -p 25565:25565 -it -e AUTO_START="false" -v minecraft18gvm:/minecraft wwlib/minecraft:server-openjdk17-graalvm
+```
+
+### deploy & run
+The `/deploy` script copies the server files from `/opt/minecraft` to `/minecraft` which is mounted as Docker volume `minecraft18`
+
+```
+/deploy
+
+java -Xms512M -Xmx1G -jar spigot-$MINECRAFT_VERSION.jar
+```
+
+When running GraalVM (openjdk17) Minecraft 1.17.1 CAN access the JavaScript script engine.
+
+1.17.1
+
+[19:20:06] [Worker-Main-10/INFO]: Preparing spawn area: 91%
+[19:20:06] [Server thread/INFO]: Time elapsed: 3874 ms
+[19:20:06] [Server thread/INFO]: [hellojavascript] Enabling hellojavascript v0.1
+[19:20:06] [Server thread/ERROR]: [hellojavascript] HelloJavaScript plugin enabled.
+[19:20:06] [Server thread/ERROR]: [hellojavascript] VM Details:
+[19:20:06] [Server thread/ERROR]: [hellojavascript] OpenJDK 64-Bit Server VM
+[19:20:06] [Server thread/ERROR]: [hellojavascript] 17.0.1+12-jvmci-21.3-b05
+[19:20:06] [Server thread/ERROR]: [hellojavascript] mixed mode, sharing
+[19:20:07] [Server thread/ERROR]: [hellojavascript] Found a JavaScript engine.
+[19:20:07] [Server thread/INFO]: Server permissions file permissions.yml is empty, ignoring it
+[19:20:07] [Server thread/INFO]: Done (35.591s)! For help, type "help"
+
+When running GraalVM (openjdk17) Minecraft 1.18.1 CANNOT access the JavaScript script engine.
+
+1.18.1
+
+[19:29:50] [Worker-Main-8/INFO]: Preparing spawn area: 97%
+[19:29:51] [Server thread/INFO]: Time elapsed: 7584 ms
+[19:29:51] [Server thread/INFO]: [hellojavascript] Enabling hellojavascript v0.1
+[19:29:51] [Server thread/ERROR]: [hellojavascript] HelloJavaScript plugin enabled.
+[19:29:51] [Server thread/ERROR]: [hellojavascript] VM Details:
+[19:29:51] [Server thread/ERROR]: [hellojavascript] OpenJDK 64-Bit Server VM
+[19:29:51] [Server thread/ERROR]: [hellojavascript] 17.0.1+12-jvmci-21.3-b05
+[19:29:51] [Server thread/ERROR]: [hellojavascript] mixed mode, sharing
+[19:29:51] [Server thread/ERROR]: [hellojavascript] No JavaScript Engine available.
+[19:29:51] [Server thread/ERROR]: [hellojavascript] Available engines include:
+[19:29:51] [Server thread/INFO]: Server permissions file permissions.yml is empty, ignoring it
+[19:29:51] [Server thread/INFO]: Done (103.668s)! For help, type "help"

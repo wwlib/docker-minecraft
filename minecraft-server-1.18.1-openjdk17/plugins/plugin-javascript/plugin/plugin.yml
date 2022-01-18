@@ -1,5 +1,6 @@
 name: hellojavascript
 version: 0.1
+api-version: 1.13
 author: Andrew Rapo
 main: org.wwlib.spigotmc.HelloJavaScript.Main
 
