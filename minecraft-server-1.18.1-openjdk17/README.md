@@ -11,11 +11,14 @@ Note: The Nashorn JavaScript engine is NOT included in JDK 17 and must be loaded
 java -Xms512M -Xmx1G -cp /minecraft/nashorn --module-path /minecraft/nashorn --add-modules org.openjdk.nashorn -jar spigot-$MINECRAFT_VERSION.jar
 ```
 
-Then the JavaScript engine CAN be accesssed like:
+Then the JavaScript engine should be accesssed like:
 ```
 ScriptEngineManager factory = new ScriptEngineManager();
 this.engine = factory.getEngineByName("JavaScript");
 ```
+
+However, as of Spigot/Paper 1.18.1 script engines are not found (undefined)
+See: https://hub.spigotmc.org/jira/browse/SPIGOT-6902
 
 ## Nashorn
 
@@ -120,3 +123,5 @@ When running GraalVM (openjdk17) Minecraft 1.18.1 CANNOT access the JavaScript s
 [19:29:51] [Server thread/ERROR]: [hellojavascript] Available engines include:
 [19:29:51] [Server thread/INFO]: Server permissions file permissions.yml is empty, ignoring it
 [19:29:51] [Server thread/INFO]: Done (103.668s)! For help, type "help"
+
+See: https://hub.spigotmc.org/jira/browse/SPIGOT-6902
