@@ -20,17 +20,17 @@ this.engine = factory.getEngineByName("JavaScript");
 ### build image
 ```
 cd minecraft-server-1.18.1-openjdk17
-docker build -f Dockerfile.openjdk17 -t wwlib/docker-minecraft:openjdk17 "."
+docker build -f Dockerfile.openjdk17 -t wwlib/minecraft:server-openjdk17 "."
 
 ```
 
 ### run image
 ```
-docker run --rm -p 25565:25565 -it -e AUTO_START="false" -v minecraft18:/minecraft wwlib/docker-minecraft:openjdk17
+docker run --rm -p 25565:25565 -it -e AUTO_START="false" -v minecraft18:/minecraft wwlib/minecraft:server-openjdk17
 ```
 
 ### deploy & run
-The `/deploy` script copies the server files from `/opt/minecraft` to `/minecraft` which is mounted as Docker volume `minecraft17`
+The `/deploy` script copies the server files from `/opt/minecraft` to `/minecraft` which is mounted as Docker volume `minecraft18`
 
 The `/deploy` script also copies the Nashorn jars from `/opt/nashorn` to `/minecraft/nashorn`
 

@@ -20,13 +20,13 @@ this.engine = factory.getEngineByName("JavaScript");
 ### build image
 ```
 cd minecraft-server-1.17.1-openjdk16
-docker build -f Dockerfile.openjdk16 -t wwlib/docker-minecraft:openjdk16 "."
+docker build -f Dockerfile.openjdk16 -t wwlib/minecraft:server-openjdk16 "."
 
 ```
 
 ### run image
 ```
-docker run --rm -p 25565:25565 -it -e AUTO_START="false" -v minecraft17:/minecraft wwlib/docker-minecraft:openjdk16
+docker run --rm -p 25565:25565 -it -e AUTO_START="false" -v minecraft17:/minecraft wwlib/minecraft:server-openjdk16
 ```
 
 ### deploy & run

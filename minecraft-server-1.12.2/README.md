@@ -14,12 +14,12 @@ this.engine = factory.getEngineByName("JavaScript");
 ### build image
 ```
 cd minecraft-server-1.12.2
-docker build -f Dockerfile -t wwlib/docker-minecraft:server-1.12.2 "."
+docker build -f Dockerfile -t wwlib/minecraft:server-1.12.2 "."
 ```
 
 ### run image
 ```
-docker run --rm -p 25565:25565 -it -e AUTO_START="true" -v minecraft12:/minecraft wwlib/docker-minecraft:server-1.12.2
+docker run --rm -p 25565:25565 -it -e AUTO_START="true" -v minecraft12:/minecraft wwlib/minecraft:server-1.12.2
 ```
 
 ### deploy & run

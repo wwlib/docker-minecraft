@@ -7,7 +7,7 @@ ScriptCraft version 3.4.0 is the most recent ScriptCraft release and works with 
 ### build image
 ```
 cd scriptcraft-3.4.0
-docker build -f Dockerfile -t wwlib/docker-minecraft:scriptcraft-plugin "."
+docker build -f Dockerfile -t wwlib/minecraft:scriptcraft-plugin-1.12.2 "."
 
 ```
 
@@ -15,7 +15,7 @@ docker build -f Dockerfile -t wwlib/docker-minecraft:scriptcraft-plugin "."
 Note: Using Docker volume `minecraft12` - same as `minecraft-server-1.12.2` container
 
 ```
-docker run --rm -it -e AUTO_DEPLOY="true" -v minecraft12:/minecraft wwlib/docker-minecraft:scriptcraft-plugin
+docker run --rm -it -e AUTO_DEPLOY="true" -v minecraft12:/minecraft wwlib/minecraft:scriptcraft-plugin-1.12.2
 ```
 
 ### deploy scriptcraft.jar
