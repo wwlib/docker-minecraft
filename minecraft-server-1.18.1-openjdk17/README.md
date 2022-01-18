@@ -18,6 +18,7 @@ this.engine = factory.getEngineByName("JavaScript");
 ```
 
 However, as of Spigot/Paper 1.18.1 script engines are not found (undefined)
+
 See: https://hub.spigotmc.org/jira/browse/SPIGOT-6902
 
 ## Nashorn
@@ -95,6 +96,7 @@ When running GraalVM (openjdk17) Minecraft 1.17.1 CAN access the JavaScript scri
 
 1.17.1
 
+```
 [19:20:06] [Worker-Main-10/INFO]: Preparing spawn area: 91%
 [19:20:06] [Server thread/INFO]: Time elapsed: 3874 ms
 [19:20:06] [Server thread/INFO]: [hellojavascript] Enabling hellojavascript v0.1
@@ -106,11 +108,13 @@ When running GraalVM (openjdk17) Minecraft 1.17.1 CAN access the JavaScript scri
 [19:20:07] [Server thread/ERROR]: [hellojavascript] Found a JavaScript engine.
 [19:20:07] [Server thread/INFO]: Server permissions file permissions.yml is empty, ignoring it
 [19:20:07] [Server thread/INFO]: Done (35.591s)! For help, type "help"
+```
 
-When running GraalVM (openjdk17) Minecraft 1.18.1 CANNOT access the JavaScript script engine.
+However, when running GraalVM (openjdk17) Minecraft 1.18.1 CANNOT access the JavaScript script engine.
 
 1.18.1
 
+```
 [19:29:50] [Worker-Main-8/INFO]: Preparing spawn area: 97%
 [19:29:51] [Server thread/INFO]: Time elapsed: 7584 ms
 [19:29:51] [Server thread/INFO]: [hellojavascript] Enabling hellojavascript v0.1
@@ -123,5 +127,6 @@ When running GraalVM (openjdk17) Minecraft 1.18.1 CANNOT access the JavaScript s
 [19:29:51] [Server thread/ERROR]: [hellojavascript] Available engines include:
 [19:29:51] [Server thread/INFO]: Server permissions file permissions.yml is empty, ignoring it
 [19:29:51] [Server thread/INFO]: Done (103.668s)! For help, type "help"
+```
 
 See: https://hub.spigotmc.org/jira/browse/SPIGOT-6902
