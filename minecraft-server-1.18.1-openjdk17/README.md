@@ -66,6 +66,8 @@ cp /opt/plugins/ScriptCraft/target/scriptcraft.jar /minecraft/plugins/scriptcraf
 
 ## GraalVM
 
+Using container image `ghcr.io/graalvm/graalvm-ce:java17-21.3` from `https://github.com/graalvm/container/pkgs/container/graalvm-ce`
+
 ### build image
 ```
 cd minecraft-server-1.18.1-openjdk17
